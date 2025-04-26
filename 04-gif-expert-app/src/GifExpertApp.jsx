@@ -1,6 +1,5 @@
 import {useState} from 'react';
-import { AddCategory } from './components/AddCategory';
-import { GifGrid } from './components/GifGrid';
+import { AddCategory, GifGrid } from './components';
 
 export const GifExpertApp = () => {
 
@@ -12,14 +11,13 @@ export const GifExpertApp = () => {
       if(categories.includes(newcategory)) return;
       if(categories.includes(newcategory.toUpperCase())) return;
 
-      setCategories([...categories, newcategory]);
+      setCategories([ newcategory ,...categories]);
       //Es un nuevo arreglo donde estan las categorias y se agrega lo que agrego
     };
   return (
     <>
 
         <h1>GifExpertApp</h1>
-
       <AddCategory 
         onNewCategory = {onAddCategory}
       />
@@ -32,8 +30,6 @@ export const GifExpertApp = () => {
 
   )
 };
-//hay que mantener un listado de las categorias que queremos buscar
-//y almacenar el listado que debe persistir conforme lo que trabajamos en la aplicacion
 //CUANDO QUERAMOS ALMACENAR INFORMACION Y ESA INFO CAMBIA EL HTML
 //USUALMENTE SE USA UN HOOK DE REACT PARA MANTENER EL ESTADO
 //El .map() crea un nuevo array con los resultados de la llamada a la función indicada aplicados a cada uno de sus elementos
