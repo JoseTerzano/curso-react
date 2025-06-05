@@ -1,14 +1,29 @@
 import { SaveOutlined } from "@mui/icons-material"
 import { Button, Grid, TextField, Typography } from "@mui/material"
 import { ImageGallery } from "../components/ImageGallery"
+import { useForm } from "../../hooks/useForm"
+import { useSelector } from "react-redux"
+import { useMemo } from "react"
 
 
 export const NotView = () => {
+
+    const { activeNote } = useSelector( state => state.journal )
+
+    const { body, title, onInputChange, formState, date } = useForm( activeNote );
+
+    const dateString = useMemo( () => {
+        const newDate = new Date( date );
+        return newDate.toUTCString();
+    }, [date] )
+
+
+
   return (
     <Grid container direction='column' sx={{ mb:1 }} className= 'animate__animated animate__fadeIn animate__faster'>
         <Grid container direction='row' justifyContent='space-between' alignItems='center'>
             <Typography fontSize={39} fontWeight='light'>
-                28 de agosto, de 2025
+                { dateString }
             </Typography>
             <Button color='primary' sx={{padding: 2 }} startIcon={<SaveOutlined sx={{ fontSize: 30, mr: 1 }}/>}>
                 Guardar
@@ -22,7 +37,11 @@ export const NotView = () => {
             fullWidth
             placeholder="Ingrese un Titulo"
             label='Titulo'
-            sx={{ border: 'none', mb: 1, mt: 1 }}/>
+            sx={{ border: 'none', mb: 1, mt: 1 }}
+            name="title"
+            value={ title }
+            onChange={ onInputChange }
+            />
 
             <TextField
             type="text"
@@ -30,7 +49,11 @@ export const NotView = () => {
             fullWidth
             multiline
             placeholder="Que sucedio en el dia de hoy?"
-            minRows={5}/>
+            minRows={5}
+            name="body"
+            value={ body }
+            onChange={ onInputChange }
+            />
         </Grid>
 
         <ImageGallery/>
