@@ -30,7 +30,6 @@ export const singInWithGoogle = async() => {
 
 export const registerUserWithEmailPassword = async({ email, password, displayName }) => {
     try {
-        console.log({ email, password, displayName });
 
         const resp = await createUserWithEmailAndPassword(FirebaseAuth, email, password);
         const { uid, photoURL } = resp.user;
