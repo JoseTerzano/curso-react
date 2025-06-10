@@ -1,9 +1,14 @@
 const express = require( 'express' );
 require('dotenv').config();
+const { dbConnection } = require('./database/config');
 
 
 //Crear el Servidor de Express
 const app = express();
+
+//Base de Datos
+dbConnection()
+
 
 // Directorio publico
 app.use(express.static('public'));
@@ -21,5 +26,5 @@ app.listen( process.env.PORT, () => {
     console.log(`Servidor corriendo en puerto ${process.env.PORT}`)
 } )
 
-//Un middelware es una funcion que se ejecuta cuando alguien hace una peticion a mi servidor
+//Un middleware es una funcion que se ejecuta cuando alguien hace una peticion a mi servidor
 // Un endpoint es como una puerta de entrada a una funcionalidad del backend.
