@@ -9,7 +9,7 @@ const router = Router();
 const {  check } = require('express-validator');
 const { crearUsuario, loginUsuario, revalidarToken } = require('../controllers/auth');
 const { validarCampos } = require('../middlewares/validar-campos');
-
+const { validarJWT } = require('../middlewares/validar-jwt');
 
 router.post('/new', 
     [
@@ -28,7 +28,7 @@ router.post('/',
     ]
     , loginUsuario);
 
-router.get('/renew', revalidarToken);
+router.get('/renew', validarJWT ,revalidarToken);//El objetivo del renew es que si lo llamamos verifica el JWT y devuelve otro
 
 
 module.exports = router;
